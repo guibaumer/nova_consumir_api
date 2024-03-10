@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../services/axios';
 import { Container } from './styled';
+import Info from '../../components/Info';
 
 export default function index({ userToken, setChildData }) {
   const [alunos, setAlunos] = useState([]);
@@ -48,14 +49,15 @@ export default function index({ userToken, setChildData }) {
   };
 
   return (
-    <Container>
-      <h2>Alunos</h2>
-      {alunos && alunos.map((aluno) => (
-        <div key={aluno.id}>
-          <p>{aluno.nome}</p>
-          <p>{aluno.sobrenome}</p>
-          <p>{aluno.idade}</p>
-          {userToken && (
+    <>
+      <Container>
+        <h2>Alunos</h2>
+        {alunos && alunos.map((aluno) => (
+          <div key={aluno.id}>
+            <p>{aluno.nome}</p>
+            <p>{aluno.sobrenome}</p>
+            <p>{aluno.idade}</p>
+            {userToken && (
             <span>
               {/* eslint-disable-next-line */}
               <button type="button" onClick={() => handleDelete(aluno.id)}>
@@ -66,10 +68,12 @@ export default function index({ userToken, setChildData }) {
                 <FaPencilAlt size="20" onClick={() => handleEdit(aluno.id)} />
               </button>
             </span>
-          ) }
+            ) }
 
-        </div>
-      ))}
-    </Container>
+          </div>
+        ))}
+      </Container>
+      <Info />
+    </>
   );
 }
